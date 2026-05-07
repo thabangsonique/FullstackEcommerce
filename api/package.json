@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echocd api \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
   },
   "author": "",
   "license": "ISC",
