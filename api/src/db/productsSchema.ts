@@ -6,6 +6,7 @@ import {
   doublePrecision,
   text,
 } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
 
 export const productsTable = pgTable("products", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(), //id for each product
@@ -14,3 +15,8 @@ export const productsTable = pgTable("products", {
   image: varchar({ length: 255 }),
   Description: text(),
 });
+
+//zod schema for validation.
+export const createProductSchema = createInsertSchema(productsTable);
+
+export const updateProductSChema = createInsertSchema(productsTable).partial();

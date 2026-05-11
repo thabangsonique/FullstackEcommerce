@@ -1,4 +1,6 @@
 import { Router, Request, Response } from "express";
+import { validateData } from "../../middleware/validationMiddleware";
+
 import {
   listProducts,
   updateProduct,
@@ -6,6 +8,13 @@ import {
   getProductById,
   createProduct,
 } from "../../controller/productsController";
+
+import { createInsertSchema, CreateInsertSchema } from "drizzle-zod"; //helper to create schema for the productsTable
+import { productsTable } from "../../db/productsSchema";
+import {
+  createProductSchema,
+  updateProductSChema,
+} from "../../db/productsSchema";
 
 const router = Router();
 
@@ -16,11 +25,11 @@ router.get("/", listProducts);
 router.get("/:id", getProductById);
 
 //for creating products
-router.post("/", createProduct);
+router.post("/", validateData(createProductSchema), createProduct);
 
 //delete product
 router.delete("/:id", deleteProduct);
 
 //update product by id
-router.put("/:id", updateProduct);
+router.put("/:id", validateData(updateProductSChema), updateProduct);
 export default router;
