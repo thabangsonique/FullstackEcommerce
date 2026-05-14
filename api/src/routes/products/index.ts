@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { validateData } from "../../middleware/validationMiddleware";
+import { verifyToken, checkUserRole } from "../../middleware/authMiddleware";
 
 import {
   listProducts,
@@ -25,7 +26,13 @@ router.get("/", listProducts);
 router.get("/:id", getProductById);
 
 //for creating products
-router.post("/", validateData(createProductSchema), createProduct);
+router.post(
+  "/",
+  verifyToken,
+  checkUserRole,
+  validateData(createProductSchema),
+  createProduct,
+);
 
 //delete product
 router.delete("/:id", deleteProduct);

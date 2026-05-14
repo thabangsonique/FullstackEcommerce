@@ -8,6 +8,20 @@
       "when": 1778140211658,
       "tag": "0000_early_nekra",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1778614148637,
+      "tag": "0001_stiff_lester",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1778614270549,
+      "tag": "0002_illegal_fallen_one",
+      "breakpoints": true
     }
   ]
 }
