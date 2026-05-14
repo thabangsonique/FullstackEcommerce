@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import productRoutes from "./routes/products/index";
-import authRoutes from "./routes/auth/authRoutes";
+import productRoutes from "./routes/products/index.js";
+import authRoutes from "./routes/auth/authRoutes.js";
 
 const port = 3000; //port will be recieving requests and responses from
 

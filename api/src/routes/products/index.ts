@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
-import { validateData } from "../../middleware/validationMiddleware";
-import { verifyToken, checkUserRole } from "../../middleware/authMiddleware";
+import { validateData } from "../../middleware/validationMiddleware.js";
+import { verifyToken, checkUserRole } from "../../middleware/authMiddleware.js";
 
 import {
   listProducts,
@@ -8,14 +8,14 @@ import {
   deleteProduct,
   getProductById,
   createProduct,
-} from "../../controller/productsController";
+} from "../../controller/productsController.js";
 
 import { createInsertSchema, CreateInsertSchema } from "drizzle-zod"; //helper to create schema for the productsTable
-import { productsTable } from "../../db/productsSchema";
+import { productsTable } from "../../db/productsSchema.js";
 import {
   createProductSchema,
   updateProductSChema,
-} from "../../db/productsSchema";
+} from "../../db/productsSchema.js";
 
 const router = Router();
 
