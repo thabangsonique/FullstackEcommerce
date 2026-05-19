@@ -14,7 +14,7 @@ export function verifyToken(req: Request, res: Response, next: Function) {
 
   try {
     //if token was found. campare secret key.
-    const matched = jwt.verify(token, "your-secret");
+    const matched = jwt.verify(token, process.env.JWT_SECRET!);
 
     if (typeof matched !== "object" || !matched?.userId) {
       res.status(401).json("Access denied");
@@ -41,7 +41,7 @@ export function checkUserRole(req: Request, res: Response, next: Function) {
 
   try {
     //check if token matches
-    const matched = jwt.verify(token, "your-secret");
+    const matched = jwt.verify(token, process.env.JWT_SECRET!);
 
     if (typeof matched !== "object" || !matched?.userId) {
       res.status(401).json("Access denied");

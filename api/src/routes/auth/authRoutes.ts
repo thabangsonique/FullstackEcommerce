@@ -60,7 +60,7 @@ router.post(
         userId: user.id,
         role: user.role,
       },
-      "your-secret",
+      process.env.JWT_SECRET!,
       { expiresIn: "30d" },
     );
 
