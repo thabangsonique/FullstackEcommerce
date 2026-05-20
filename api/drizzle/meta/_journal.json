@@ -22,6 +22,13 @@
       "when": 1778614270549,
       "tag": "0002_illegal_fallen_one",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1779292872834,
+      "tag": "0003_vengeful_miss_america",
+      "breakpoints": true
     }
   ]
 }
