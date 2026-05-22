@@ -6,7 +6,7 @@ export default defineConfig({
   schema: [
     "./src/db/productsSchema.ts",
     "./src/db/usersSchema.ts",
-     "./src/db/ordersSchema.ts", // include orders schema so migrations include orders and order_items tables
+    "./src/db/ordersSchema.ts", // include orders schema so migrations include orders and order_items tables
   ],
   dbCredentials: {
     url: process.env.DATABASE_URL!,

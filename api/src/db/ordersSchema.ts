@@ -1,35 +1,30 @@
 import {
-  integer,
-  varchar,
-  timestamp,
-  pgTable,
   doublePrecision,
+  integer,
+  pgTable,
+  timestamp,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { usersTable } from "./usersSchema.js";
 import { productsTable } from "./productsSchema.js";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const ordersTable = pgTable("orders", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  createdAt: timestamp().notNull(),
-  status: varchar({ length: 50 }).notNull(),
+  createdAt: timestamp().notNull().defaultNow(),
+  status: varchar({ length: 50 }).notNull().default("New"),
 
-  //reference each order to a sningle user that created it
   userId: integer()
     .references(() => usersTable.id)
     .notNull(),
 });
 
-/*create table that ties the orders to the number of products for each order. many to many.
-single product can have multiple orders. and single order can have multiple products
-*/
-
-export const ordersItemsTable = pgTable("order_items", {
+export const orderItemsTable = pgTable("order_items", {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
   orderId: integer()
     .references(() => ordersTable.id)
     .notNull(),
-
   productId: integer()
     .references(() => productsTable.id)
     .notNull(),
@@ -38,8 +33,24 @@ export const ordersItemsTable = pgTable("order_items", {
   price: doublePrecision().notNull(),
 });
 
+//schema for the orderstable
 export const insertOrderSchema = createInsertSchema(ordersTable).omit({
-  userId: true, //user must not insert id
+  userId: true,
   status: true,
   createdAt: true,
+});
+
+//schema for the order vs products table
+export const insertOrderItemSchema = createInsertSchema(orderItemsTable).omit({
+  orderId: true,
+});
+
+//schema for a combination  of the orderstable schema and  order vs product table schema
+
+/*we need the order information from the orderstable schema and we need the information 
+about the items orderd from the order vs product(orderItemsTable) schema*/
+
+export const insertOrdersWithItemsSchema = z.object({
+  order: insertOrderSchema,
+  items: z.array(insertOrderItemSchema),
 });

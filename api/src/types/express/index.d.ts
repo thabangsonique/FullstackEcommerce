@@ -5,7 +5,7 @@ declare global {
   namespace Express {
     export interface Request {
       //Declaration merging
-      userId?: Number;
+      userId?: number;
       cleanBody?: any;
     }
   }
