@@ -8,7 +8,7 @@ export function verifyToken(req: Request, res: Response, next: Function) {
 
   //verify token keys
   if (!token) {
-    res.status(401).json("Access denied");
+    res.status(401).json("Access denied. no token found");
     return;
   }
 
