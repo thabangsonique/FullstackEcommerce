@@ -9,7 +9,7 @@ import {
 import useSocialAuth from "@/hooks/useSocialAuth";
 
 const AuthScreen = () => {
-  const { isLoading, handleSocialAuth } = useSocialAuth();
+  const { loadingStrategy, handleSocialAuth } = useSocialAuth();
 
   return (
     <View className="flex-1 justify-center items-center px-8">
@@ -24,9 +24,9 @@ const AuthScreen = () => {
         className="mt-3 px-6 py-3 bg-white rounded-full border
        border-gray-300"
         onPress={() => handleSocialAuth("oauth_google")}
-        disabled={isLoading}
+        disabled={loadingStrategy !== null}
       >
-        {isLoading ? (
+        {loadingStrategy === "oauth_google" ? (
           <ActivityIndicator size={"small"} color={"#4285f4"} />
         ) : (
           <View className="flex-row justify-center items-center">
@@ -43,10 +43,10 @@ const AuthScreen = () => {
       <TouchableOpacity
         className="mt-3 px-7 py-3 bg-white rounded-full border
        border-gray-300"
-        onPress={() => handleSocialAuth("oauth_google")}
-        disabled={isLoading}
+        onPress={() => handleSocialAuth("oauth_apple")}
+        disabled={loadingStrategy !== null}
       >
-        {isLoading ? (
+        {loadingStrategy === "oauth_apple" ? (
           <ActivityIndicator size={"small"} color={"#4285f4"} />
         ) : (
           <View className="flex-row justify-center items-center">

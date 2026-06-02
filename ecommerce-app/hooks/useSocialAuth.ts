@@ -6,11 +6,11 @@ import { Alert } from "react-native";
 //CREATE HOOK FOR USER TO LOGIN.
 
 function useSocialAuth() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingStrategy, setLoadingStrategy] = useState<string | null>(null);
   const { startSSOFlow } = useSSO();
 
   async function handleSocialAuth(strategy: "oauth_google" | "oauth_apple") {
-    setIsLoading(true);
+    setLoadingStrategy(strategy);
 
     try {
       const { createdSessionId, setActive } = await startSSOFlow({ strategy });
@@ -18,6 +18,8 @@ function useSocialAuth() {
       if (createdSessionId && setActive) {
         //set the active function to activate the session.
         await setActive({ session: createdSessionId }); //tells the app and clerk that user signed in successfully.
+      } else if (createdSessionId) {
+        console.warn("Session created but setActive unavailable");
       }
     } catch (error) {
       console.log("Error in social auth:", error);
@@ -29,10 +31,10 @@ function useSocialAuth() {
         `Failed to sign in with ${provider}. Please try again Later`,
       );
     } finally {
-      setIsLoading(false);
+      setLoadingStrategy(null);
     }
   }
 
-  return { isLoading, handleSocialAuth };
+  return { loadingStrategy, handleSocialAuth };
 }
 export default useSocialAuth;
